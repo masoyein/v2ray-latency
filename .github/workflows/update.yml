@@ -1,0 +1,71 @@
+name: Update V2Ray Top 15
+
+on:
+  schedule:
+    # Every 24 hours at 00:00 UTC
+    - cron: "0 0 * * *"
+
+  # Allow manual update from GitHub Actions
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download V2Ray source lists
+        run: |
+          curl -L --fail \
+            "https://raw.githubusercontent.com/masoyein/v2ray-config/main/Sub1.txt" \
+            -o Sub1.txt
+
+          curl -L --fail \
+            "https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt" \
+            -o top100.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Download Xray-core
+        run: |
+          XRAY_VERSION="26.9.8"
+
+          wget -q \
+            "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" \
+            -O xray.zip
+
+          unzip -q xray.zip -d xray
+          chmod +x xray/xray
+
+          ./xray/xray version
+
+      - name: Run latency checker
+        run: |
+          python v2ray_latency.py
+
+      - name: Commit updated Top 15
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add top15.txt latency_report.json
+
+          if git diff --cached --quiet; then
+            echo "No changes detected."
+          else
+            git commit -m "Update V2Ray Top 15"
+            git push
+          fi
