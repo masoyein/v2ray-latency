@@ -15,10 +15,10 @@ import requests
 
 
 # ============================================================
-# Configuration
+# CONFIGURATION
 # ============================================================
 
-SOURCE_FILES = {
+SOURCES = {
     "Sub1.txt":
         "https://raw.githubusercontent.com/masoyein/v2ray-config/main/Sub1.txt",
 
@@ -26,9 +26,11 @@ SOURCE_FILES = {
         "https://raw.githubusercontent.com/0xRadikal/Free-v2ray-Configs/main/top100.txt",
 }
 
-XRAY_BIN = os.environ.get("XRAY_BIN", "./xray/xray")
+XRAY = os.environ.get(
+    "XRAY_BIN",
+    "./xray/xray"
+)
 
-# Small HTTPS endpoint used only for latency measurement.
 TEST_URL = os.environ.get(
     "TEST_URL",
     "https://www.gstatic.com/generate_204"
@@ -36,468 +38,210 @@ TEST_URL = os.environ.get(
 
 TOP_N = 15
 
-# Maximum time for one curl test.
-TIMEOUT = 8
+TIMEOUT = int(
+    os.environ.get("TIMEOUT", "8")
+)
 
-# Maximum time waiting for Xray's local SOCKS port.
-STARTUP_TIMEOUT = 5
+MAX_CONFIGS = int(
+    os.environ.get("MAX_CONFIGS", "0")
+)
 
-# 0 = test every configuration.
-# Set MAX_CONFIGS=100 if you want to limit testing.
-MAX_CONFIGS = int(os.environ.get("MAX_CONFIGS", "0"))
-
-USER_AGENT = "v2ray-latency-checker/1.0"
-
-
-# ============================================================
-# Base64 helper
-# ============================================================
-
-def b64decode_loose(value: str) -> bytes:
-    value = value.strip()
-    value = value.replace("-", "+").replace("_", "/")
-    value += "=" * (-len(value) % 4)
-
-    return base64.b64decode(value, validate=False)
+USER_AGENT = (
+    "v2ray-latency-checker/2.0"
+)
 
 
 # ============================================================
-# VMess parser
+# HELPERS
 # ============================================================
 
-def decode_vmess(uri: str) -> dict:
-    raw = uri.split("://", 1)[1]
-    raw = raw.split("#", 1)[0]
+def b64(value: str) -> bytes:
 
-    data = json.loads(
-        b64decode_loose(raw).decode("utf-8-sig")
+    value = re.sub(
+        r"\s+",
+        "",
+        value
     )
 
-    address = str(data.get("add") or "").strip()
-    port = int(data.get("port") or 0)
-    user_id = str(data.get("id") or "").strip()
+    value = value.replace(
+        "-",
+        "+"
+    ).replace(
+        "_",
+        "/"
+    )
 
-    if not address or not port or not user_id:
-        raise ValueError("VMess missing address/port/id")
+    value += "=" * (
+        -len(value) % 4
+    )
 
-    outbound = {
-        "protocol": "vmess",
-        "settings": {
-            "vnext": [
-                {
-                    "address": address,
-                    "port": port,
-                    "users": [
-                        {
-                            "id": user_id,
-                            "alterId": int(data.get("aid") or 0),
-                            "security": str(
-                                data.get("scy") or "auto"
-                            ),
-                        }
-                    ],
-                }
-            ]
-        },
+    return base64.b64decode(
+        value,
+        validate=False
+    )
+
+
+def bool_value(value) -> bool:
+
+    if isinstance(value, bool):
+        return value
+
+    return str(
+        value or ""
+    ).lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
     }
 
-    network = str(
-        data.get("net") or "tcp"
-    ).lower()
 
-    security = str(
-        data.get("security")
-        or data.get("tls")
-        or "none"
-    ).lower()
+def q1(
+    query,
+    *names,
+    default=""
+):
 
-    params = {
-        "type": network,
-        "security": security,
-
-        "sni": (
-            data.get("sni")
-            or data.get("host")
-            or ""
-        ),
-
-        "host": data.get("host") or "",
-
-        "path": data.get("path") or "/",
-
-        "serviceName": (
-            data.get("serviceName")
-            or data.get("path")
-            or ""
-        ),
-
-        "fp": data.get("fp") or "",
-        "pbk": data.get("pbk") or "",
-        "sid": data.get("sid") or "",
-        "spx": data.get("spx") or "",
-        "alpn": data.get("alpn") or "",
-
-        "allowInsecure": bool(
-            data.get("allowInsecure", False)
-        ),
-
-        "headerType": data.get("type") or "",
-    }
-
-    add_stream_settings(outbound, params)
-
-    return outbound
-
-
-# ============================================================
-# Shadowsocks parser
-# ============================================================
-
-def parse_shadowsocks(uri: str) -> dict:
-    body = uri.split("://", 1)[1]
-
-    # Remove display name.
-    body = body.split("#", 1)[0]
-
-    # Remove optional query string.
-    if "?" in body:
-        body, _query = body.split("?", 1)
-
-    if "@" in body:
-
-        userinfo, server = body.rsplit("@", 1)
-
-        userinfo = urllib.parse.unquote(userinfo)
-
-        if ":" not in userinfo:
-            raise ValueError(
-                "Invalid Shadowsocks userinfo"
-            )
-
-        method, password = userinfo.split(":", 1)
-
-    else:
-
-        decoded = b64decode_loose(body).decode("utf-8")
-
-        userinfo, server = decoded.rsplit("@", 1)
-
-        method, password = userinfo.split(":", 1)
-
-    # IPv6 address
-    if server.startswith("["):
-
-        end = server.find("]")
+    for name in names:
 
         if (
-            end < 0
-            or end + 1 >= len(server)
-            or server[end + 1] != ":"
+            name in query
+            and query[name]
         ):
-            raise ValueError(
-                "Invalid IPv6 Shadowsocks address"
-            )
+            return query[name][0]
 
-        host = server[1:end]
-        port = int(server[end + 2:])
+    return default
 
-    else:
 
-        host, port_text = server.rsplit(":", 1)
-        port = int(port_text)
+# ============================================================
+# TRANSPORT NORMALIZATION
+# ============================================================
 
-    if not host or not port:
-        raise ValueError(
-            "Invalid Shadowsocks host/port"
-        )
+def normalize_method(
+    value
+) -> str:
 
-    return {
-        "protocol": "shadowsocks",
+    value = str(
+        value or "raw"
+    ).strip().lower()
 
-        "settings": {
-            "servers": [
-                {
-                    "address": host,
-                    "port": port,
-                    "method": method,
-                    "password": password,
-                }
-            ]
-        },
+    aliases = {
+
+        "tcp":
+            "raw",
+
+        "raw":
+            "raw",
+
+        "none":
+            "raw",
+
+        "ws":
+            "websocket",
+
+        "websocket":
+            "websocket",
+
+        "grpc":
+            "grpc",
+
+        "httpupgrade":
+            "httpupgrade",
+
+        "http-upgrade":
+            "httpupgrade",
+
+        "xhttp":
+            "xhttp",
+
+        "splithttp":
+            "xhttp",
+
+        "h2":
+            "h2",
+
+        "http":
+            "h2",
+
+        "kcp":
+            "mkcp",
+
+        "mkcp":
+            "mkcp",
     }
 
-
-# ============================================================
-# VLESS / Trojan / Shadowsocks URI parser
-# ============================================================
-
-def parse_uri(uri: str) -> dict:
-
-    scheme = uri.split("://", 1)[0].lower()
-
-    # Shadowsocks needs special parsing because many
-    # ss:// URLs don't have a normal URI username/hostname.
-    if scheme == "ss":
-        return parse_shadowsocks(uri)
-
-    if scheme == "vmess":
-        return decode_vmess(uri)
-
-    u = urllib.parse.urlsplit(uri)
-
-    host = u.hostname
-    port = u.port
-
-    if not host or not port:
-        raise ValueError(
-            "Missing host/port"
-        )
-
-    q = urllib.parse.parse_qs(
-        u.query,
-        keep_blank_values=True
+    return aliases.get(
+        value,
+        value
     )
-
-    def q1(*names, default=""):
-
-        for name in names:
-
-            if name in q and q[name]:
-                return q[name][0]
-
-        return default
-
-    network = q1(
-        "type",
-        "network",
-        "net",
-        default="tcp"
-    ).lower()
-
-    security = q1(
-        "security",
-        default="none"
-    ).lower()
-
-    sni = q1(
-        "sni",
-        "serverName",
-        default=""
-    )
-
-    transport_host = q1(
-        "host",
-        "authority",
-        default=""
-    )
-
-    path = q1(
-        "path",
-        default="/"
-    )
-
-    service_name = q1(
-        "serviceName",
-        "service",
-        default=""
-    )
-
-    fingerprint = q1(
-        "fp",
-        "fingerprint",
-        default=""
-    )
-
-    public_key = q1(
-        "pbk",
-        "publicKey",
-        default=""
-    )
-
-    short_id = q1(
-        "sid",
-        "shortId",
-        default=""
-    )
-
-    spider_x = q1(
-        "spx",
-        "spiderX",
-        default=""
-    )
-
-    alpn = q1(
-        "alpn",
-        default=""
-    )
-
-    allow_insecure = (
-        q1(
-            "allowInsecure",
-            "allow_insecure",
-            default=""
-        ).lower()
-        in {"1", "true", "yes"}
-    )
-
-    # --------------------------------------------------------
-    # VLESS
-    # --------------------------------------------------------
-
-    if scheme == "vless":
-
-        user_id = urllib.parse.unquote(
-            u.username or ""
-        )
-
-        if not user_id:
-            raise ValueError(
-                "VLESS missing UUID"
-            )
-
-        user = {
-            "id": user_id,
-            "encryption": q1(
-                "encryption",
-                default="none"
-            ),
-        }
-
-        flow = q1(
-            "flow",
-            default=""
-        )
-
-        if flow:
-            user["flow"] = flow
-
-        outbound = {
-            "protocol": "vless",
-
-            "settings": {
-                "vnext": [
-                    {
-                        "address": host,
-                        "port": port,
-
-                        "users": [user],
-                    }
-                ]
-            },
-        }
-
-    # --------------------------------------------------------
-    # Trojan
-    # --------------------------------------------------------
-
-    elif scheme == "trojan":
-
-        password = urllib.parse.unquote(
-            u.username or ""
-        )
-
-        if not password:
-            raise ValueError(
-                "Trojan missing password"
-            )
-
-        outbound = {
-            "protocol": "trojan",
-
-            "settings": {
-                "servers": [
-                    {
-                        "address": host,
-                        "port": port,
-                        "password": password,
-                    }
-                ]
-            },
-        }
-
-    else:
-
-        raise ValueError(
-            f"Unsupported scheme: {scheme}"
-        )
-
-    params = {
-        "type": network,
-        "security": security,
-
-        "sni": (
-            sni
-            or transport_host
-            or host
-        ),
-
-        "host": transport_host,
-
-        "path": path,
-
-        "serviceName": service_name,
-
-        "fp": fingerprint,
-
-        "pbk": public_key,
-
-        "sid": short_id,
-
-        "spx": spider_x,
-
-        "alpn": alpn,
-
-        "allowInsecure": allow_insecure,
-
-        "headerType": q1(
-            "headerType",
-            "header",
-            default=""
-        ),
-
-        "mode": q1(
-            "mode",
-            default=""
-        ),
-    }
-
-    add_stream_settings(
-        outbound,
-        params
-    )
-
-    return outbound
 
 
 # ============================================================
-# Xray stream settings
+# BUILD XRAY STREAM SETTINGS
 # ============================================================
 
-def add_stream_settings(
-    outbound: dict,
+def build_stream_settings(
     p: dict
-) -> None:
+) -> dict:
 
-    network = p["type"]
-    security = p["security"]
+    method = normalize_method(
+        p.get("type")
+    )
+
+    security = str(
+        p.get("security")
+        or "none"
+    ).strip().lower()
 
     supported = {
-        "tcp",
-        "ws",
+        "raw",
+        "xhttp",
         "grpc",
-        "http",
+        "websocket",
+        "httpupgrade",
         "h2",
+        "mkcp",
     }
 
-    if network not in supported:
+    if method not in supported:
 
         raise ValueError(
-            f"Unsupported transport: {network}"
+            f"Unsupported transport: {method}"
+        )
+
+    if security not in {
+        "none",
+        "tls",
+        "reality",
+    }:
+
+        raise ValueError(
+            f"Unsupported security: {security}"
+        )
+
+    # REALITY is supported by
+    # RAW / XHTTP / gRPC.
+    if (
+        security == "reality"
+        and method not in {
+            "raw",
+            "xhttp",
+            "grpc",
+        }
+    ):
+
+        raise ValueError(
+            "REALITY is not supported "
+            f"with {method}"
         )
 
     stream = {
-        "network": network,
-        "security": security,
+
+        "method":
+            method,
+
+        "security":
+            security,
     }
 
     # --------------------------------------------------------
@@ -508,169 +252,1121 @@ def add_stream_settings(
 
         tls = {}
 
-        if p["sni"]:
-            tls["serverName"] = p["sni"]
+        if p.get("sni"):
 
-        if p["alpn"]:
+            tls[
+                "serverName"
+            ] = p["sni"]
+
+        if p.get("alpn"):
 
             tls["alpn"] = [
                 x.strip()
-                for x in p["alpn"].split(",")
+                for x in str(
+                    p["alpn"]
+                ).split(",")
+
                 if x.strip()
             ]
 
-        if p["fp"]:
-            tls["fingerprint"] = p["fp"]
+        if p.get("fp"):
 
-        if p["allowInsecure"]:
-            tls["allowInsecure"] = True
+            tls[
+                "fingerprint"
+            ] = p["fp"]
 
-        stream["tlsSettings"] = tls
+        if p.get(
+            "allowInsecure"
+        ):
+
+            tls[
+                "allowInsecure"
+            ] = True
+
+        stream[
+            "tlsSettings"
+        ] = tls
 
     # --------------------------------------------------------
-    # Reality
+    # REALITY
     # --------------------------------------------------------
 
-    elif security == "reality":
+    if security == "reality":
 
         reality = {}
 
         mapping = {
-            "sni": "serverName",
-            "fp": "fingerprint",
-            "pbk": "publicKey",
-            "sid": "shortId",
-            "spx": "spiderX",
+
+            "sni":
+                "serverName",
+
+            "fp":
+                "fingerprint",
+
+            "pbk":
+                "publicKey",
+
+            "sid":
+                "shortId",
+
+            "spx":
+                "spiderX",
         }
 
-        for source_key, xray_key in mapping.items():
+        for source, target in (
+            mapping.items()
+        ):
 
-            if p[source_key]:
+            if p.get(source):
 
-                reality[xray_key] = p[source_key]
+                reality[target] = (
+                    p[source]
+                )
 
-        stream["realitySettings"] = reality
+        if not reality.get(
+            "publicKey"
+        ):
+
+            raise ValueError(
+                "REALITY missing "
+                "publicKey/pbk"
+            )
+
+        stream[
+            "realitySettings"
+        ] = reality
 
     # --------------------------------------------------------
-    # WebSocket
+    # RAW
     # --------------------------------------------------------
 
-    if network == "ws":
+    if method == "raw":
 
-        ws = {
-            "path": p["path"] or "/"
-        }
+        header_type = str(
+            p.get("headerType")
+            or ""
+        ).lower()
 
-        if p["host"]:
+        if header_type == "http":
 
-            ws["headers"] = {
-                "Host": p["host"]
+            stream[
+                "rawSettings"
+            ] = {
+
+                "header": {
+
+                    "type":
+                        "http",
+
+                    "request": {
+
+                        "version":
+                            "1.1",
+
+                        "method":
+                            "GET",
+
+                        "path": [
+                            p.get(
+                                "path"
+                            ) or "/"
+                        ],
+
+                        "headers": {
+
+                            "Host": (
+                                [p["host"]]
+                                if p.get("host")
+                                else []
+                            ),
+
+                            "Connection": [
+                                "keep-alive"
+                            ],
+
+                            "Pragma": [
+                                "no-cache"
+                            ],
+                        },
+                    },
+                },
             }
 
-        stream["wsSettings"] = ws
+        else:
+
+            stream[
+                "rawSettings"
+            ] = {
+
+                "header": {
+                    "type": "none"
+                }
+            }
+
+    # --------------------------------------------------------
+    # WEBSOCKET
+    # --------------------------------------------------------
+
+    elif method == "websocket":
+
+        ws = {
+
+            "path":
+                p.get("path")
+                or "/"
+        }
+
+        if p.get("host"):
+
+            ws[
+                "headers"
+            ] = {
+
+                "Host":
+                    p["host"]
+            }
+
+        stream[
+            "wsSettings"
+        ] = ws
 
     # --------------------------------------------------------
     # gRPC
     # --------------------------------------------------------
 
-    elif network == "grpc":
+    elif method == "grpc":
 
         grpc = {
+
             "serviceName":
-                p["serviceName"]
+                p.get(
+                    "serviceName"
+                )
+                or ""
         }
 
-        if p["host"]:
+        if p.get("mode") == "multi":
 
-            grpc["authority"] = p["host"]
+            grpc[
+                "multiMode"
+            ] = True
 
-        if p["mode"] == "multi":
+        if p.get("host"):
 
-            grpc["multiMode"] = True
+            grpc[
+                "authority"
+            ] = p["host"]
 
-        stream["grpcSettings"] = grpc
+        stream[
+            "grpcSettings"
+        ] = grpc
 
     # --------------------------------------------------------
-    # HTTP / HTTP2
+    # HTTP UPGRADE
     # --------------------------------------------------------
 
-    elif network in {"http", "h2"}:
+    elif method == "httpupgrade":
 
-        stream["httpSettings"] = {
+        httpupgrade = {
+
+            "path":
+                p.get("path")
+                or "/"
+        }
+
+        if p.get("host"):
+
+            httpupgrade[
+                "host"
+            ] = p["host"]
+
+        if p.get("headers"):
+
+            httpupgrade[
+                "headers"
+            ] = p["headers"]
+
+        stream[
+            "httpupgradeSettings"
+        ] = httpupgrade
+
+    # --------------------------------------------------------
+    # XHTTP
+    # --------------------------------------------------------
+
+    elif method == "xhttp":
+
+        xhttp = {
+
+            "path":
+                p.get("path")
+                or "/"
+        }
+
+        if p.get("host"):
+
+            xhttp[
+                "host"
+            ] = p["host"]
+
+        if p.get("mode"):
+
+            xhttp[
+                "mode"
+            ] = p["mode"]
+
+        if p.get("extra"):
+
+            try:
+
+                xhttp[
+                    "extra"
+                ] = json.loads(
+                    p["extra"]
+                )
+
+            except Exception as exc:
+
+                raise ValueError(
+                    "Invalid XHTTP "
+                    f"extra JSON: {exc}"
+                )
+
+        stream[
+            "xhttpSettings"
+        ] = xhttp
+
+    # --------------------------------------------------------
+    # HTTP/2
+    # --------------------------------------------------------
+
+    elif method == "h2":
+
+        stream[
+            "httpSettings"
+        ] = {
+
             "host": (
                 [p["host"]]
-                if p["host"]
+                if p.get("host")
                 else []
             ),
 
-            "path": p["path"] or "/",
+            "path":
+                p.get("path")
+                or "/",
         }
 
     # --------------------------------------------------------
-    # TCP + HTTP header
+    # mKCP
     # --------------------------------------------------------
 
-    elif (
-        network == "tcp"
-        and p["headerType"].lower() == "http"
+    elif method == "mkcp":
+
+        stream[
+            "kcpSettings"
+        ] = {
+
+            "mtu":
+                int(
+                    p.get("mtu")
+                    or 1350
+                ),
+
+            "tti":
+                int(
+                    p.get("tti")
+                    or 50
+                ),
+
+            "uplinkCapacity":
+                int(
+                    p.get(
+                        "uplinkCapacity"
+                    )
+                    or 5
+                ),
+
+            "downlinkCapacity":
+                int(
+                    p.get(
+                        "downlinkCapacity"
+                    )
+                    or 20
+                ),
+
+            "cwndMultiplier":
+                int(
+                    p.get(
+                        "cwndMultiplier"
+                    )
+                    or 1
+                ),
+
+            "maxSendingWindow":
+                int(
+                    p.get(
+                        "maxSendingWindow"
+                    )
+                    or 2097152
+                ),
+        }
+
+    return stream
+
+
+# ============================================================
+# VMESS
+# ============================================================
+
+def parse_vmess(
+    uri: str
+) -> dict:
+
+    encoded = (
+        uri
+        .split("://", 1)[1]
+        .split("#", 1)[0]
+    )
+
+    data = json.loads(
+        b64(encoded).decode(
+            "utf-8-sig"
+        )
+    )
+
+    address = str(
+        data.get("add")
+        or ""
+    ).strip()
+
+    port = int(
+        data.get("port")
+        or 0
+    )
+
+    user_id = str(
+        data.get("id")
+        or ""
+    ).strip()
+
+    if (
+        not address
+        or not port
+        or not user_id
     ):
 
-        host_values = (
-            [p["host"]]
-            if p["host"]
-            else []
+        raise ValueError(
+            "VMess missing "
+            "address/port/id"
         )
 
-        stream["tcpSettings"] = {
+    security = (
+        data.get("security")
+        or data.get("tls")
+        or "none"
+    )
 
-            "header": {
+    if security is True:
+        security = "tls"
 
-                "type": "http",
+    if str(
+        security
+    ).lower() in {
+        "",
+        "0",
+        "false",
+    }:
 
-                "request": {
+        security = "none"
 
-                    "version": "1.1",
+    params = {
 
-                    "method": "GET",
+        "type":
+            data.get("net")
+            or data.get("network")
+            or "tcp",
 
-                    "path": [
-                        p["path"] or "/"
+        "security":
+            security,
+
+        "sni":
+            data.get("sni")
+            or data.get("serverName")
+            or data.get("host")
+            or address,
+
+        "host":
+            data.get("host")
+            or "",
+
+        "path":
+            data.get("path")
+            or "/",
+
+        "serviceName":
+            data.get("serviceName")
+            or "",
+
+        "fp":
+            data.get("fp")
+            or data.get("fingerprint")
+            or "",
+
+        "pbk":
+            data.get("pbk")
+            or data.get("publicKey")
+            or "",
+
+        "sid":
+            data.get("sid")
+            or data.get("shortId")
+            or "",
+
+        "spx":
+            data.get("spx")
+            or data.get("spiderX")
+            or "",
+
+        "alpn":
+            data.get("alpn")
+            or "",
+
+        "allowInsecure":
+            bool_value(
+                data.get(
+                    "allowInsecure"
+                )
+            ),
+
+        "headerType":
+            data.get("headerType")
+            or data.get("type")
+            or "",
+
+        "mode":
+            data.get("mode")
+            or "",
+
+        "extra":
+            data.get("extra")
+            or "",
+
+        "mtu":
+            data.get("mtu"),
+
+        "tti":
+            data.get("tti"),
+
+        "uplinkCapacity":
+            data.get(
+                "uplinkCapacity"
+            ),
+
+        "downlinkCapacity":
+            data.get(
+                "downlinkCapacity"
+            ),
+
+        "cwndMultiplier":
+            data.get(
+                "cwndMultiplier"
+            ),
+
+        "maxSendingWindow":
+            data.get(
+                "maxSendingWindow"
+            ),
+    }
+
+    return {
+
+        "protocol":
+            "vmess",
+
+        "settings": {
+
+            "vnext": [
+
+                {
+
+                    "address":
+                        address,
+
+                    "port":
+                        port,
+
+                    "users": [
+
+                        {
+
+                            "id":
+                                user_id,
+
+                            "alterId":
+                                int(
+                                    data.get(
+                                        "aid"
+                                    )
+                                    or 0
+                                ),
+
+                            "security":
+                                str(
+                                    data.get(
+                                        "scy"
+                                    )
+                                    or "auto"
+                                ),
+                        }
                     ],
+                }
+            ]
+        },
 
-                    "headers": {
+        "streamSettings":
+            build_stream_settings(
+                params
+            ),
+    }
 
-                        "Host": host_values,
 
-                        "Connection": [
-                            "keep-alive"
-                        ],
+# ============================================================
+# SHADOWSOCKS
+# ============================================================
 
-                        "Pragma": [
-                            "no-cache"
-                        ],
-                    },
-                },
-            }
+def parse_shadowsocks(
+    uri: str
+) -> dict:
+
+    parsed = urllib.parse.urlsplit(
+        uri
+    )
+
+    body = (
+        parsed.netloc
+        + parsed.path
+    )
+
+    if "@" in body:
+
+        auth, server = (
+            body.rsplit(
+                "@",
+                1
+            )
+        )
+
+        auth = urllib.parse.unquote(
+            auth
+        )
+
+    else:
+
+        decoded = b64(
+            body
+        ).decode(
+            "utf-8"
+        )
+
+        if "@" not in decoded:
+
+            raise ValueError(
+                "Invalid Shadowsocks URI"
+            )
+
+        auth, server = (
+            decoded.rsplit(
+                "@",
+                1
+            )
+        )
+
+    if ":" not in auth:
+
+        raise ValueError(
+            "Invalid Shadowsocks "
+            "method/password"
+        )
+
+    method_name, password = (
+        auth.split(
+            ":",
+            1
+        )
+    )
+
+    if server.startswith("["):
+
+        end = server.find("]")
+
+        if (
+            end < 0
+            or end + 1 >= len(server)
+            or server[end + 1] != ":"
+        ):
+
+            raise ValueError(
+                "Invalid Shadowsocks "
+                "IPv6 address"
+            )
+
+        host = server[
+            1:end
+        ]
+
+        port = int(
+            server[
+                end + 2:
+            ]
+        )
+
+    else:
+
+        host, port = (
+            server.rsplit(
+                ":",
+                1
+            )
+        )
+
+        port = int(port)
+
+    query = urllib.parse.parse_qs(
+        parsed.query
+    )
+
+    if "plugin" in query:
+
+        raise ValueError(
+            "Shadowsocks plugin "
+            "transport is not supported"
+        )
+
+    return {
+
+        "protocol":
+            "shadowsocks",
+
+        "settings": {
+
+            "servers": [
+
+                {
+
+                    "address":
+                        host,
+
+                    "port":
+                        port,
+
+                    "method":
+                        method_name,
+
+                    "password":
+                        password,
+                }
+            ]
+        },
+    }
+
+
+# ============================================================
+# VLESS / TROJAN
+# ============================================================
+
+def parse_uri(
+    uri: str
+) -> dict:
+
+    scheme = (
+        uri
+        .split("://", 1)[0]
+        .lower()
+    )
+
+    if scheme == "vmess":
+
+        return parse_vmess(
+            uri
+        )
+
+    if scheme == "ss":
+
+        return parse_shadowsocks(
+            uri
+        )
+
+    if scheme not in {
+        "vless",
+        "trojan",
+    }:
+
+        raise ValueError(
+            f"Unsupported scheme: "
+            f"{scheme}"
+        )
+
+    parsed = urllib.parse.urlsplit(
+        uri
+    )
+
+    host = parsed.hostname
+    port = parsed.port
+
+    if not host or not port:
+
+        raise ValueError(
+            "Missing host/port"
+        )
+
+    query = urllib.parse.parse_qs(
+        parsed.query,
+        keep_blank_values=True
+    )
+
+    transport_host = q1(
+        query,
+        "host",
+        "authority",
+        default=""
+    )
+
+    params = {
+
+        "type":
+            q1(
+                query,
+                "type",
+                "network",
+                "net",
+                default="raw"
+            ),
+
+        "security":
+            q1(
+                query,
+                "security",
+                default="none"
+            ),
+
+        "sni":
+            q1(
+                query,
+                "sni",
+                "serverName",
+                default=""
+            )
+            or transport_host
+            or host,
+
+        "host":
+            transport_host,
+
+        "path":
+            q1(
+                query,
+                "path",
+                default="/"
+            ),
+
+        "serviceName":
+            q1(
+                query,
+                "serviceName",
+                "service",
+                default=""
+            ),
+
+        "fp":
+            q1(
+                query,
+                "fp",
+                "fingerprint",
+                default=""
+            ),
+
+        "pbk":
+            q1(
+                query,
+                "pbk",
+                "publicKey",
+                default=""
+            ),
+
+        "sid":
+            q1(
+                query,
+                "sid",
+                "shortId",
+                default=""
+            ),
+
+        "spx":
+            q1(
+                query,
+                "spx",
+                "spiderX",
+                default=""
+            ),
+
+        "alpn":
+            q1(
+                query,
+                "alpn",
+                default=""
+            ),
+
+        "mode":
+            q1(
+                query,
+                "mode",
+                default=""
+            ),
+
+        "extra":
+            q1(
+                query,
+                "extra",
+                default=""
+            ),
+
+        "headerType":
+            q1(
+                query,
+                "headerType",
+                "header",
+                default=""
+            ),
+
+        "allowInsecure":
+            bool_value(
+                q1(
+                    query,
+                    "allowInsecure",
+                    "allow_insecure",
+                    default=""
+                )
+            ),
+
+        "mtu":
+            q1(
+                query,
+                "mtu",
+                default=""
+            ),
+
+        "tti":
+            q1(
+                query,
+                "tti",
+                default=""
+            ),
+
+        "uplinkCapacity":
+            q1(
+                query,
+                "uplinkCapacity",
+                default=""
+            ),
+
+        "downlinkCapacity":
+            q1(
+                query,
+                "downlinkCapacity",
+                default=""
+            ),
+
+        "cwndMultiplier":
+            q1(
+                query,
+                "cwndMultiplier",
+                default=""
+            ),
+
+        "maxSendingWindow":
+            q1(
+                query,
+                "maxSendingWindow",
+                default=""
+            ),
+    }
+
+    # Optional custom HTTP headers.
+    raw_headers = q1(
+        query,
+        "headers",
+        default=""
+    )
+
+    if raw_headers:
+
+        try:
+
+            headers = json.loads(
+                raw_headers
+            )
+
+            if isinstance(
+                headers,
+                dict
+            ):
+
+                params[
+                    "headers"
+                ] = {
+
+                    str(k):
+                        str(v)
+
+                    for k, v
+                    in headers.items()
+                }
+
+        except Exception:
+            pass
+
+    # --------------------------------------------------------
+    # VLESS
+    # --------------------------------------------------------
+
+    if scheme == "vless":
+
+        user_id = urllib.parse.unquote(
+            parsed.username
+            or ""
+        )
+
+        if not user_id:
+
+            raise ValueError(
+                "VLESS missing UUID"
+            )
+
+        user = {
+
+            "id":
+                user_id,
+
+            "encryption":
+                q1(
+                    query,
+                    "encryption",
+                    default="none"
+                ),
         }
 
-    outbound["streamSettings"] = stream
+        flow = q1(
+            query,
+            "flow",
+            default=""
+        )
+
+        if flow:
+
+            user[
+                "flow"
+            ] = flow
+
+        outbound = {
+
+            "protocol":
+                "vless",
+
+            "settings": {
+
+                "vnext": [
+
+                    {
+
+                        "address":
+                            host,
+
+                        "port":
+                            port,
+
+                        "users": [
+                            user
+                        ],
+                    }
+                ]
+            },
+        }
+
+    # --------------------------------------------------------
+    # TROJAN
+    # --------------------------------------------------------
+
+    else:
+
+        password = urllib.parse.unquote(
+            parsed.username
+            or ""
+        )
+
+        if not password:
+
+            raise ValueError(
+                "Trojan missing password"
+            )
+
+        outbound = {
+
+            "protocol":
+                "trojan",
+
+            "settings": {
+
+                "servers": [
+
+                    {
+
+                        "address":
+                            host,
+
+                        "port":
+                            port,
+
+                        "password":
+                            password,
+                    }
+                ]
+            },
+        }
+
+    outbound[
+        "streamSettings"
+    ] = build_stream_settings(
+        params
+    )
+
+    return outbound
 
 
 # ============================================================
-# Extract V2Ray links from source files
+# EXTRACT CONFIG LINKS
 # ============================================================
 
-def extract_uris(text: str) -> list[str]:
+def extract_uris(
+    text: str
+) -> list:
 
     lines = [
+
         x.strip()
+
         for x in text
-        .replace("\r", "")
-        .split("\n")
+        .replace(
+            "\r",
+            ""
+        )
+        .splitlines()
+
         if x.strip()
     ]
 
     schemes = (
+
         "vless://",
         "vmess://",
         "trojan://",
@@ -678,34 +1374,42 @@ def extract_uris(text: str) -> list[str]:
     )
 
     found = [
+
         x
+
         for x in lines
-        if x.lower().startswith(schemes)
+
+        if x.lower().startswith(
+            schemes
+        )
     ]
 
     if found:
+
         return found
 
-    # Some subscription files are Base64 encoded.
-    compact = re.sub(
-        r"\s+",
-        "",
-        text
-    )
-
+    # Subscription may itself be Base64.
     try:
 
-        decoded = (
-            b64decode_loose(compact)
-            .decode("utf-8-sig")
+        decoded = b64(
+            re.sub(
+                r"\s+",
+                "",
+                text
+            )
+        ).decode(
+            "utf-8-sig"
         )
 
         return [
+
             x.strip()
-            for x in decoded
-            .replace("\r", "")
-            .split("\n")
-            if x.strip().lower().startswith(
+
+            for x in decoded.splitlines()
+
+            if x.strip()
+            .lower()
+            .startswith(
                 schemes
             )
         ]
@@ -716,33 +1420,39 @@ def extract_uris(text: str) -> list[str]:
 
 
 # ============================================================
-# Duplicate removal
+# DEDUPLICATION
 # ============================================================
 
-def canonical_key(uri: str) -> str:
+def canonical_key(
+    uri: str
+) -> str:
 
     if "://" in uri:
 
-        scheme, rest = uri.split(
-            "://",
-            1
+        scheme, rest = (
+            uri.split(
+                "://",
+                1
+            )
         )
 
-        # Remove display name (#...)
+        # Remove display name only.
         rest = rest.split(
             "#",
             1
         )[0]
 
         return (
-            f"{scheme.lower()}://{rest}"
+            scheme.lower()
+            + "://"
+            + rest.strip()
         )
 
     return uri.strip()
 
 
 # ============================================================
-# Download + merge both sources
+# LOAD + MERGE SOURCES
 # ============================================================
 
 def load_sources():
@@ -752,13 +1462,18 @@ def load_sources():
     session = requests.Session()
 
     session.headers.update({
-        "User-Agent": USER_AGENT
+
+        "User-Agent":
+            USER_AGENT
     })
 
-    for source_name, url in SOURCE_FILES.items():
+    for source_name, url in (
+        SOURCES.items()
+    ):
 
         print(
-            f"[SOURCE] {source_name}"
+            f"[SOURCE] "
+            f"{source_name}"
         )
 
         response = session.get(
@@ -773,45 +1488,58 @@ def load_sources():
         )
 
         print(
-            f"  found {len(uris)} configs"
+            f"  found "
+            f"{len(uris)} configs"
         )
 
         for uri in uris:
 
             all_items.append(
-                (source_name, uri)
+                (
+                    source_name,
+                    uri
+                )
             )
 
     unique = {}
 
-    for source_name, uri in all_items:
+    source_map = {}
 
-        key = canonical_key(uri)
+    for source_name, uri in (
+        all_items
+    ):
+
+        key = canonical_key(
+            uri
+        )
 
         if key not in unique:
 
-            unique[key] = (
-                source_name,
-                uri
-            )
+            unique[key] = uri
 
-        else:
+            source_map[key] = set()
 
-            old_source, old_uri = \
-                unique[key]
+        source_map[
+            key
+        ].add(
+            source_name
+        )
 
-            if source_name not in old_source:
+    items = [
 
-                unique[key] = (
-                    old_source
-                    + "+"
-                    + source_name,
-                    old_uri
+        (
+            "+".join(
+                sorted(
+                    source_map[key]
                 )
+            ),
 
-    items = list(
-        unique.values()
-    )
+            uri
+        )
+
+        for key, uri
+        in unique.items()
+    ]
 
     if MAX_CONFIGS:
 
@@ -820,7 +1548,7 @@ def load_sources():
         ]
 
     print(
-        f"[MERGE] unique configs: "
+        "[MERGE] unique configs: "
         f"{len(items)}"
     )
 
@@ -828,7 +1556,7 @@ def load_sources():
 
 
 # ============================================================
-# Find a free local port
+# LOCAL PORT
 # ============================================================
 
 def free_port() -> int:
@@ -836,24 +1564,21 @@ def free_port() -> int:
     with socket.socket(
         socket.AF_INET,
         socket.SOCK_STREAM
-    ) as s:
+    ) as sock:
 
-        s.bind(
-            ("127.0.0.1", 0)
+        sock.bind(
+            (
+                "127.0.0.1",
+                0
+            )
         )
 
-        return int(
-            s.getsockname()[1]
-        )
+        return sock.getsockname()[1]
 
-
-# ============================================================
-# Wait for Xray SOCKS port
-# ============================================================
 
 def wait_port(
     port: int,
-    timeout: float
+    timeout: float = 5
 ) -> bool:
 
     deadline = (
@@ -869,20 +1594,98 @@ def wait_port(
         try:
 
             with socket.create_connection(
-                ("127.0.0.1", port),
+                (
+                    "127.0.0.1",
+                    port
+                ),
                 timeout=0.25
             ):
+
                 return True
 
         except OSError:
 
-            time.sleep(0.05)
+            time.sleep(
+                0.05
+            )
 
     return False
 
 
 # ============================================================
-# Test one configuration
+# FAILURE CLASSIFICATION
+# ============================================================
+
+def classify_error(
+    message: str
+) -> str:
+
+    m = message.lower()
+
+    if (
+        "unsupported transport"
+        in m
+    ):
+
+        return (
+            "unsupported_transport"
+        )
+
+    if (
+        "config rejected"
+        in m
+    ):
+
+        return (
+            "xray_config_rejected"
+        )
+
+    if (
+        "timeout"
+        in m
+    ):
+
+        return "timeout"
+
+    if (
+        "connection reset"
+        in m
+    ):
+
+        return (
+            "connection_reset"
+        )
+
+    if (
+        "ssl"
+        in m
+        or "tls"
+        in m
+    ):
+
+        return "tls_error"
+
+    if (
+        "plugin"
+        in m
+    ):
+
+        return (
+            "unsupported_plugin"
+        )
+
+    if (
+        "curl"
+        in m
+    ):
+
+        return "curl_error"
+
+    return "other"
+
+
+# ============================================================
+# TEST ONE CONFIG
 # ============================================================
 
 def test_one(
@@ -894,22 +1697,30 @@ def test_one(
 
     with tempfile.TemporaryDirectory(
         prefix="xray-test-"
-    ) as td:
+    ) as temp_dir:
 
         config_path = (
-            Path(td)
+            Path(temp_dir)
             / "config.json"
+        )
+
+        log_path = (
+            Path(temp_dir)
+            / "xray.log"
         )
 
         config = {
 
             "log": {
-                "loglevel": "none"
+
+                "loglevel":
+                    "warning"
             },
 
             "inbounds": [
 
                 {
+
                     "listen":
                         "127.0.0.1",
 
@@ -931,27 +1742,42 @@ def test_one(
             ],
 
             "outbounds": [
-                parse_uri(uri)
+
+                parse_uri(
+                    uri
+                )
             ],
         }
 
         config_path.write_text(
+
             json.dumps(
                 config,
                 ensure_ascii=False
             ),
+
             encoding="utf-8"
         )
 
-        # Check configuration first.
+        # ----------------------------------------------------
+        # Xray configuration validation
+        # ----------------------------------------------------
+
         check = subprocess.run(
 
             [
-                XRAY_BIN,
+
+                XRAY,
+
                 "run",
+
                 "-test",
+
                 "-config",
-                str(config_path),
+
+                str(
+                    config_path
+                ),
             ],
 
             capture_output=True,
@@ -963,42 +1789,77 @@ def test_one(
 
         if check.returncode != 0:
 
-            raise ValueError(
-                "Xray config rejected"
+            detail = (
+
+                check.stderr.strip()
+
+                or
+
+                check.stdout.strip()
+
+                or
+
+                "unknown Xray error"
             )
 
-        # Start Xray.
-        proc = subprocess.Popen(
+            raise ValueError(
 
-            [
-                XRAY_BIN,
-                "run",
-                "-config",
-                str(config_path),
-            ],
+                "Xray config rejected: "
+                + detail[-800:]
+            )
 
-            stdout=subprocess.DEVNULL,
+        # ----------------------------------------------------
+        # Start Xray
+        # ----------------------------------------------------
 
-            stderr=subprocess.DEVNULL,
-        )
+        with log_path.open(
+            "w",
+            encoding="utf-8"
+        ) as log_file:
+
+            process = subprocess.Popen(
+
+                [
+
+                    XRAY,
+
+                    "run",
+
+                    "-config",
+
+                    str(
+                        config_path
+                    ),
+                ],
+
+                stdout=log_file,
+
+                stderr=subprocess.STDOUT,
+            )
 
         try:
 
             if not wait_port(
-                port,
-                STARTUP_TIMEOUT
+                port
             ):
 
+                tail = (
+                    log_path
+                    .read_text(
+                        encoding="utf-8",
+                        errors="replace"
+                    )[-600:]
+                )
+
                 raise TimeoutError(
+
                     "Xray SOCKS inbound "
-                    "did not start"
+                    "did not start "
+                    + tail
                 )
 
             # ------------------------------------------------
-            # curl through Xray SOCKS5
-            #
-            # --socks5-hostname means DNS is also resolved
-            # through the proxy tunnel.
+            # HTTPS request through Xray SOCKS5
             # ------------------------------------------------
 
             command = [
@@ -1016,6 +1877,7 @@ def test_one(
                 str(TIMEOUT),
 
                 "--socks5-hostname",
+
                 f"127.0.0.1:{port}",
 
                 "-A",
@@ -1030,29 +1892,34 @@ def test_one(
                 TEST_URL,
             ]
 
-            started = time.perf_counter()
+            try:
 
-            result = subprocess.run(
+                result = subprocess.run(
 
-                command,
+                    command,
 
-                capture_output=True,
+                    capture_output=True,
 
-                text=True,
+                    text=True,
 
-                timeout=TIMEOUT + 2,
-            )
+                    timeout=TIMEOUT + 2,
+                )
 
-            elapsed_ms = (
-                time.perf_counter()
-                - started
-            ) * 1000.0
+            except subprocess.TimeoutExpired:
+
+                raise TimeoutError(
+                    "curl timeout"
+                )
 
             if result.returncode != 0:
 
                 raise ConnectionError(
+
                     result.stderr.strip()
-                    or "curl failed"
+
+                    or
+
+                    "curl failed"
                 )
 
             parts = (
@@ -1061,7 +1928,7 @@ def test_one(
                 .split()
             )
 
-            if len(parts) < 2:
+            if len(parts) != 2:
 
                 raise ConnectionError(
                     "Invalid curl timing output"
@@ -1071,9 +1938,8 @@ def test_one(
                 parts[0]
             )
 
-            measured_ms = (
-                float(parts[1])
-                * 1000.0
+            seconds = float(
+                parts[1]
             )
 
             if status >= 400:
@@ -1092,59 +1958,60 @@ def test_one(
 
                 "latency_ms":
                     round(
-                        measured_ms,
+                        seconds * 1000,
                         2
                     ),
 
                 "http_status":
                     status,
-
-                "elapsed_ms":
-                    round(
-                        elapsed_ms,
-                        2
-                    ),
             }
 
         finally:
 
-            proc.terminate()
+            process.terminate()
 
             try:
 
-                proc.wait(
+                process.wait(
                     timeout=2
                 )
 
             except subprocess.TimeoutExpired:
 
-                proc.kill()
+                process.kill()
 
-                proc.wait()
+                process.wait()
 
 
 # ============================================================
-# Main
+# MAIN
 # ============================================================
 
 def main():
 
     if not Path(
-        XRAY_BIN
+        XRAY
     ).exists():
 
         raise SystemExit(
-            f"Xray binary not found: "
-            f"{XRAY_BIN}"
+
+            "Xray binary not found: "
+            f"{XRAY}"
         )
 
     items = load_sources()
 
-    results = []
+    successful = []
 
-    failed = 0
+    failed = []
 
-    total = len(items)
+    total = len(
+        items
+    )
+
+    # --------------------------------------------------------
+    # Test every configuration
+    # --------------------------------------------------------
 
     for index, (
         source,
@@ -1161,59 +2028,112 @@ def main():
                 uri
             )
 
-            results.append(
+            successful.append(
                 result
             )
 
             print(
+
                 f"[{index}/{total}] "
+
                 f"{result['latency_ms']:.0f} ms  "
+
                 f"{source}"
             )
 
         except Exception as exc:
 
-            failed += 1
-
-            print(
-                f"[{index}/{total}] "
-                f"FAIL {source}: "
-                f"{exc}"
+            message = str(
+                exc
             )
 
-    # Lowest latency first.
-    results.sort(
-        key=lambda x:
-            x["latency_ms"]
+            failure_type = (
+                classify_error(
+                    message
+                )
+            )
+
+            failed.append({
+
+                "source":
+                    source,
+
+                "reason":
+                    failure_type,
+
+                "error":
+                    message[-800:],
+            })
+
+            print(
+
+                f"[{index}/{total}] "
+
+                f"FAIL {source}: "
+
+                f"{failure_type}: "
+
+                f"{message[:250]}"
+            )
+
+    # --------------------------------------------------------
+    # Sort lowest latency first
+    # --------------------------------------------------------
+
+    successful.sort(
+
+        key=lambda item:
+            item["latency_ms"]
     )
 
-    top = results[
+    top = successful[
         :TOP_N
     ]
 
     # --------------------------------------------------------
-    # top15.txt
+    # Write top15.txt
     # --------------------------------------------------------
 
     Path(
         "top15.txt"
     ).write_text(
 
-        "\n".join(
+        "".join(
+
             item["config"]
+            + "\n"
+
             for item in top
-        )
-        + (
-            "\n"
-            if top
-            else ""
         ),
 
         encoding="utf-8"
     )
 
     # --------------------------------------------------------
-    # latency_report.json
+    # Failure summary
+    # --------------------------------------------------------
+
+    failure_summary = {}
+
+    for item in failed:
+
+        reason = item[
+            "reason"
+        ]
+
+        failure_summary[
+            reason
+        ] = (
+
+            failure_summary.get(
+                reason,
+                0
+            )
+            + 1
+        )
+
+    # --------------------------------------------------------
+    # Write latency_report.json
     # --------------------------------------------------------
 
     report = {
@@ -1231,10 +2151,13 @@ def main():
             total,
 
         "successful_tests":
-            len(results),
+            len(successful),
 
         "failed_tests":
-            failed,
+            len(failed),
+
+        "failure_summary":
+            failure_summary,
 
         "top":
             top,
@@ -1258,16 +2181,29 @@ def main():
     # --------------------------------------------------------
 
     print()
+
     print(
-        f"SUCCESS: {len(results)}"
+        "================================"
     )
 
     print(
-        f"FAILED:  {failed}"
+        f"TOTAL:   {total}"
+    )
+
+    print(
+        f"SUCCESS: {len(successful)}"
+    )
+
+    print(
+        f"FAILED:  {len(failed)}"
     )
 
     print(
         f"TOP 15:  {len(top)}"
+    )
+
+    print(
+        "================================"
     )
 
     print()
@@ -1278,11 +2214,15 @@ def main():
     ):
 
         print(
+
             f"{rank:2}. "
+
             f"{item['latency_ms']:8.2f} ms  "
+
             f"{item['source']}"
         )
 
 
 if __name__ == "__main__":
+
     main()
