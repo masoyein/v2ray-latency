@@ -1,105 +1,105 @@
 {
-  "generated_at_utc": "2026-10-01T04:36:10Z",
+  "generated_at_utc": "2026-10-02T04:29:11Z",
   "test_url": "https://www.gstatic.com/generate_204",
   "total_unique_configs": 412,
-  "successful_tests": 65,
-  "failed_tests": 347,
+  "successful_tests": 53,
+  "failed_tests": 359,
   "failure_summary": {
-    "connection_reset": 49,
-    "timeout": 41,
-    "xray_config_rejected": 34,
+    "connection_reset": 51,
+    "timeout": 38,
+    "xray_config_rejected": 57,
     "tls_error": 5,
-    "other": 218
+    "other": 208
   },
   "top": [
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiI2Ni4xNjMuMTEzLjE3NiIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJpbnNlY3VyZSI6IjAiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicGNzIjoiIiwicG9ydCI6MjIzMjQsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgRkJFRTlGIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6Im5vbmUiLCJ0eXBlIjoibm9uZSIsInYiOiIyIiwidmNuIjoiIiwibmFtZSI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IEZCRUU5RiJ9",
-      "latency_ms": 39.31,
+      "config": "vless://56e4896e-90a9-4fe0-8480-90d3d68b9928@8.35.211.87:2096?security=tls&type=ws&path=/fp=chromefp=chrome&host=go.iranfree.de5.net&packetEncoding=xudp&sni=go.iranfree.de5.net&fp=firefox&encryption=none#US 🇺🇸 | @Raydikalx | 2C0275",
+      "latency_ms": 55.61,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxMzQuMTk1LjE5OC4yMTQiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgODJBOUUyIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIiLCJ2Y24iOiIifQ==",
-      "latency_ms": 54.57,
+      "config": "vmess://eyJhZGQiOiIxNjcuODguNjMuNTkiLCJhaWQiOiIwIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNEIwQkE5Iiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
+      "latency_ms": 56.17,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IDc2QjE3NiIsImFkZCI6IjE5OC41Ny4yNy4xOTAiLCJwb3J0IjoyMjMyNCwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOm51bGwsImhvc3QiOm51bGwsImFscG4iOm51bGwsInBhdGgiOiIvIiwidGxzIjoibm9uZSIsInNuaSI6bnVsbCwiZnAiOm51bGwsIm5hbWUiOiJDQSDwn4eo8J+HpiB8IEBSYXlkaWthbHggfCA3NkIxNzYifQ==",
-      "latency_ms": 65.7,
+      "config": "vless://56e4896e-90a9-4fe0-8480-90d3d68b9928@8.35.211.185:443?security=tls&type=ws&path=/&host=go.iranfree.de5.net&packetEncoding=xudp&sni=go.iranfree.de5.net&fp=chrome&encryption=none#US 🇺🇸 | @Raydikalx | 15C6A1",
+      "latency_ms": 59.91,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxMzQuMTk1LjE5Ni4yMTEiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiZjhjOGRjM2QtMGQzNy00NmIwLThiMzQtYTcyMzI4ODJmY2ZlIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOjE4MDAwLCJwcyI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IEE1M0RBQyIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiJub25lIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiIsInZjbiI6IiIsIm5hbWUiOiJDQSDwn4eo8J+HpiB8IEBSYXlkaWthbHggfCBBNTNEQUMifQ==",
-      "latency_ms": 78.08,
+      "config": "vless://737678dc-cc15-4643-85a4-ca9359df1aa4@104.25.3.165:443?security=tls&type=ws&path=/&host=patient-moon-c61f.ggfsa55.workers.dev&packetEncoding=xudp&sni=patient-moon-c61f.ggfsa55.workers.dev&fp=chrome#CA 🇨🇦 | @Raydikalx | ACB97B",
+      "latency_ms": 60.95,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxMzQuMTk1LjE5Ni4yMTEiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IkBQcm94eVZQTjExIiwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJpbnNlY3VyZSI6IjEiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiL0BQcm94eVZQTjExIiwicG9ydCI6IjE4MDAwIiwicHMiOiJDQSDwn4eo8J+HpiB8IEBSYXlkaWthbHggfCA4RjhBQjgiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 78.7,
+      "config": "vless://532a9115-aee7-4d39-9638-1e5146de075b@104.19.164.155:2083?security=tls&type=ws&path=/js/cHlpcC55Z2tray5kcGRucy5vcmc=/&host=muddy-math-c1fc.tmpnriqueau89.workers.dev&packetEncoding=xudp&sni=muddy-math-c1fc.tmpnriqueau89.workers.dev&fp=chrome&encryption=none#CA 🇨🇦 | @Raydikalx | 5B0C52",
+      "latency_ms": 61.72,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJ2IjoiMiIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgMUFEODVBIiwiYWRkIjoiNDcuODUuMTg4LjMwIiwicG9ydCI6IjEyMDA0IiwiaWQiOiI4YjU1NTJiZC00Y2M3LTRjYWMtYWYwOC04MWMyMTY4NmZkNGYiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiIiLCJ0bHMiOiIifQ==",
-      "latency_ms": 87.79,
+      "config": "vless://4c0b7280-76bb-495c-9c8b-f05712ebf805@104.21.63.28:443?security=tls&type=ws&path=/&host=youxuanku.kdns.fr&packetEncoding=xudp&sni=youxuanku.kdns.fr&fp=chrome#CA 🇨🇦 | @Raydikalx | 38B262",
+      "latency_ms": 62.89,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNTguNTEuMTIxLjEyMyIsImFpZCI6IjAiLCJhbHBuIjpudWxsLCJmcCI6bnVsbCwiaG9zdCI6Im15Z3B0YWdlbnQub3JnIiwiaWQiOiIwM2ZjYzYxOC1iOTNkLTY3OTYtNmFlZC04YTM4Yzk3NWQ1ODEiLCJuYW1lIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgM0I0QzkyIiwibmV0Ijoid3MiLCJwYXRoIjoiL2xpbmt2d3MiLCJwb3J0Ijo0NDMsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgM0I0QzkyIiwic2N5IjoiYXV0byIsInNuaSI6bnVsbCwidGxzIjoidGxzIiwidHlwZSI6bnVsbCwidiI6bnVsbH0=",
-      "latency_ms": 87.82,
+      "config": "vless://56e4896e-90a9-4fe0-8480-90d3d68b9928@104.19.47.188:8443?security=tls&type=ws&path=/&host=go.iranfree.de5.net&packetEncoding=xudp&sni=go.iranfree.de5.net&fp=chrome&encryption=none#CA 🇨🇦 | @Raydikalx | 34A5B2",
+      "latency_ms": 66.16,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IDdCMDVGQiIsImFkZCI6Im15Z3B0YWdlbnQub3JnIiwicG9ydCI6NDQzLCJpZCI6IjAzZmNjNjE4LWI5M2QtNjc5Ni02YWVkLThhMzhjOTc1ZDU4MSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjpudWxsLCJob3N0IjoibXlncHRhZ2VudC5vcmciLCJhbHBuIjpudWxsLCJwYXRoIjoiL2xpbmt2d3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgN0IwNUZCIn0=",
-      "latency_ms": 94.7,
+      "config": "vless://56e4896e-90a9-4fe0-8480-90d3d68b9928@8.35.211.114:2053?security=tls&type=ws&path=/&host=go.iranfree.de5.net&packetEncoding=xudp&sni=go.iranfree.de5.net&fp=chrome&encryption=none#US 🇺🇸 | @Raydikalx | EE45FA",
+      "latency_ms": 67.54,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDE4QUFGNCIsImFkZCI6IjIxNi4xMDYuMTgzLjM1IiwicG9ydCI6MjIzMjQsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiYWlkIjoiMSIsInNjeSI6ImF1dG8iLCJuZXQiOiJ0Y3AiLCJ0eXBlIjpudWxsLCJob3N0IjpudWxsLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgMThBQUY0In0=",
-      "latency_ms": 95.48,
+      "config": "vless://737678dc-cc15-4643-85a4-ca9359df1aa4@104.21.27.202:443?encryption=none&security=tls&sni=patient-moon-c61f.ggfsa55.workers.dev&fp=chrome&type=ws&path=%2F#CA 🇨🇦 | @Raydikalx | A1B685",
+      "latency_ms": 68.43,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIyMTYuMTA2LjE4My4zNSIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6IjIyMzI0IiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCA5RUVERjMiLCJzY3kiOiJhdXRvIiwic2tpcC1jZXJ0LXZlcmlmeSI6dHJ1ZSwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6IiIsInYiOiIyIn0=",
-      "latency_ms": 96.65,
+      "config": "vless://737678dc-cc15-4643-85a4-ca9359df1aa4@172.67.169.188:443?encryption=none&security=tls&sni=patient-moon-c61f.ggfsa55.workers.dev&fp=chrome&type=ws&path=%2F#CA 🇨🇦 | @Raydikalx | D230CE",
+      "latency_ms": 69.93,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://a368752a-32fc-42f3-980a-6b049218b23f@50.114.179.2:443?type=tcp&security=reality&flow=xtls-rprx-vision&fp=chrome&pbk=Fd6VTTHCVNkP_H9EZBlSXEsHp_J3aRKeBpoYZ5gRiQc&sid=a2b95f1d&sni=usa-3.letsconnectpoint.com#US 🇺🇸 | @Raydikalx | 76B100",
-      "latency_ms": 99.61,
+      "config": "vless://4c0b7280-76bb-495c-9c8b-f05712ebf805@188.114.97.6:443?security=tls&type=ws&path=/&host=youxuanku.kdns.fr&packetEncoding=xudp&sni=youxuanku.kdns.fr&fp=unsafe&encryption=none#CA 🇨🇦 | @Raydikalx | 26BF39",
+      "latency_ms": 71.26,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://a368752a-32fc-42f3-980a-6b049218b23f@107.148.158.102:443?security=reality&encryption=none&pbk=iOXJkurGWCpwU-Z1B3RPJnjXGSQ_v1-H5XtHa6mEeFc&headerType=none&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=usa-2.letsconnectpoint.com&sid=b1c1b5e2#US 🇺🇸 | @Raydikalx | 1708CD",
-      "latency_ms": 101.74,
+      "config": "vless://142d1453-9cfe-4045-8e54-f3fb33342185@188.114.97.6:443?encryption=none&security=tls&type=ws&host=lively-scene-744f.107-47a.workers.dev&path=%2Fpyip%3DProxyIP.US.CMLiussss.net&sni=lively-scene-744f.107-47a.workers.dev&fp=unsafe&cs=TLS_AES_256_GCM_SHA384%3ATLS_CHACHA20_POLY1305_SHA256%3ATLS_AES_128_GCM_SHA256%3ATLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384%3ATLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384%3ATLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256%3ATLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256%3ATLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256%3ATLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256%3ATLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA%3ATLS_ECDHE_RSA_WITH_AES_256_CBC_SHA%3ATLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256%3ATLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256&fm=%7B%22tcp%22%3A%20%5B%7B%22type%22%3A%20%22fragment%22%2C%20%22settings%22%3A%20%7B%22packets%22%3A%20%22tlshello%22%2C%20%22lengths%22%3A%20%5B%225%22%2C%20%2294%22%2C%20%221%22%5D%2C%20%22delays%22%3A%20%5B%220%22%5D%2C%20%22maxSplit%22%3A%20%220%22%7D%7D%2C%7B%22type%22%3A%20%22fragment%22%2C%20%22settings%22%3A%20%7B%22packets%22%3A%20%221-1%22%2C%20%22lengths%22%3A%20%5B%22109%22%2C%20%221%22%5D%2C%20%22delays%22%3A%20%5B%221%22%5D%2C%20%22maxSplit%22%3A%20%22355%22%7D%7D%5D%7D#CA 🇨🇦 | @Raydikalx | FD9F4C",
+      "latency_ms": 73.14,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://849252f5-b7d0-42e5-b346-0f56885e7869@143.246.40.4:443?encryption=none&flow=xtls-rprx-vision&fp=firefox&pbk=uYiZWRgbowvS9uOhVZTe0FBS1pLzA3QMyQ_NfDh4_h8&security=reality&sid=023d4c88fb030f39&sni=us-1a9b044b3e.sishka.network&type=tcp#US 🇺🇸 | @Raydikalx | 567897",
-      "latency_ms": 102.46,
+      "config": "vless://ea50b1a3-3a98-4c5e-a150-48ada40d68d7@104.18.1.1:443?security=tls&type=ws&path=/connect&host=cf-vless-4cf55824.aimall.fr&packetEncoding=xudp&alpn=h3,h2,http/1.1&sni=cf-vless-4cf55824.aimall.fr&fp=chrome&encryption=none#CA 🇨🇦 | @Raydikalx | 9A6F43",
+      "latency_ms": 74.3,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://c9fd0fb1-8251-4106-b09a-f4b426736f67@137.184.218.169:36925?security=reality&type=tcp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&pbk=lJ9INPpO4rdnm2Tek_yg0PGFyUrBB6MoKyvqt_Mfqm0&encryption=none#US 🇺🇸 | @Raydikalx | B29D7A",
-      "latency_ms": 102.71,
+      "config": "vless://737678dc-cc15-4643-85a4-ca9359df1aa4@patient-moon-c61f.ggfsa55.workers.dev:443?security=tls&type=ws&path=/&packetEncoding=xudp&sni=patient-moon-c61f.ggfsa55.workers.dev&fp=chrome#CA 🇨🇦 | @Raydikalx | D9E204",
+      "latency_ms": 84.26,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://729dd5f2-f5ff-4070-8c10-863eceded0b1@195.123.235.177:443?security=reality&encryption=none&pbk=5B83otQ5ZQwtBFhR7xzsGJRXflkFKRJpQguYbE5JWGI&headerType=&fp=chrome&type=tcp&flow=xtls-rprx-vision&sni=gateway.icloud.com&sid=c85d029f5e8eb393#US 🇺🇸 | @Raydikalx | 79720A",
-      "latency_ms": 104.8,
+      "config": "vless://fae09ec8-642b-4750-a019-27a97cd967fd@www.speedtest.net:443?alpn=http/1.1&ed=2560&eh=Sec-WebSocket-Protocol&encryption=none&fp=chrome&host=ez-3e9698.ezaccess1ec1f0c.workers.dev&path=/eyJqdW5rIjoib0FkbVU0Vm5ITkQiLCJwcm90b2NvbCI6InZsIiwibW9kZSI6InByb3h5aXAiLCJwYW5lbElQcyI6W119&security=tls&sni=ez-3e9698.ezaccess1ec1f0c.workers.dev&type=ws#CA 🇨🇦 | @Raydikalx | 83170A",
+      "latency_ms": 96.12,
       "http_status": 204
     }
   ]
