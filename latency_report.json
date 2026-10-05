@@ -1,105 +1,105 @@
 {
-  "generated_at_utc": "2026-10-04T04:43:38Z",
+  "generated_at_utc": "2026-10-05T04:30:16Z",
   "test_url": "https://www.gstatic.com/generate_204",
   "total_unique_configs": 412,
-  "successful_tests": 41,
-  "failed_tests": 371,
+  "successful_tests": 48,
+  "failed_tests": 364,
   "failure_summary": {
-    "connection_reset": 48,
-    "timeout": 42,
-    "xray_config_rejected": 69,
+    "connection_reset": 49,
+    "timeout": 39,
+    "xray_config_rejected": 62,
     "tls_error": 5,
-    "other": 207
+    "other": 209
   },
   "top": [
     {
       "source": "top100.txt",
       "config": "vmess://eyJhZGQiOiIxNjcuODguNjIuMTI0IiwiYWlkIjoiMCIsImFscG4iOiIiLCJmcCI6IiIsImhvc3QiOiIiLCJpZCI6IjA0NjIxYmFlLWFiMzYtMTFlYy1iOTA5LTAyNDJhYzEyMDAwMiIsImluc2VjdXJlIjoiMCIsIm5ldCI6InRjcCIsInBhdGgiOiIiLCJwb3J0IjoiMjIzMjQiLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDdBQThDMyIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
-      "latency_ms": 96.66,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vless://828aa918-2ed3-4541-8519-083f9efeaaf7@188.114.97.6:443?security=tls&type=ws&path=/pyip=proxyip.us.cmliussss.net&host=icy-hall-bfba.266-f4e.workers.dev&packetEncoding=xudp&sni=icy-hall-bfba.266-f4e.workers.dev&fp=unsafe&encryption=none#CA 🇨🇦 | @Raydikalx | A78C9F",
-      "latency_ms": 103.6,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vless://e0bd9dfa-0cf9-47c0-92ac-7dba08ebcff8@31.172.79.217:4443?security=reality&type=xhttp&path=%2F5e87581979&host=31.172.79.217&sni=www.cloudflare.com&fp=firefox&sid=542c92a0a53608f2&pbk=8cr592XHsE4oen8nFqeFqL00vUDA8eUI17RTUNyizDw&encryption=none#US 🇺🇸 | @Raydikalx | E77849",
-      "latency_ms": 128.25,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNzIuMTExLjM4LjEwMCIsImFpZCI6IjAiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6IjIyMzI0IiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAzRDUxM0EiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 137.68,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIyMTYuMTUyLjE1Mi4xODciLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOjIyMzI0LCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDZCM0YxNiIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiJub25lIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiIsInZjbiI6IiIsIm5hbWUiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCA2QjNGMTYifQ==",
-      "latency_ms": 139.38,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIzOC4xMDcuMjI2LjIyNyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJpbnNlY3VyZSI6IjAiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6IjIyMzI0IiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAyNDNBN0IiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 141.66,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNjcuMTcuNjguODkiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNzMxOTlGIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIiLCJ2Y24iOiIifQ==",
-      "latency_ms": 157.55,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDEwMTI2OSIsImFkZCI6Ijg0LjE3LjQxLjIiLCJwb3J0IjoxODAwMCwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOm51bGwsImhvc3QiOiIiLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgMTAxMjY5In0=",
-      "latency_ms": 160.58,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNjkuMTk3LjE0My4xMTYiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNTVCRTA1Iiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIiLCJ2Y24iOiIifQ==",
-      "latency_ms": 175.65,
+      "latency_ms": 73.91,
       "http_status": 204
     },
     {
       "source": "top100.txt",
       "config": "vmess://eyJhZGQiOiIxNjcuODguNjMuNTkiLCJhaWQiOiIwIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNEIwQkE5Iiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
-      "latency_ms": 177.05,
+      "latency_ms": 101.64,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://1d39f715-2740-4d99-bc3b-197cc48dcee7@107.173.237.146:8443?security=reality&encryption=none&pbk=D3ojIs3AUKP_tV0E4TEjh90HBVJp24Nq3qMfdxD30kc&headerType=none&fp=chrome&type=tcp&sni=updates.cdn-apple.com&sid=df8611c07d#US 🇺🇸 | @Raydikalx | F1AD8B",
-      "latency_ms": 182.37,
+      "config": "vless://2c122b00-78ed-44af-ae96-61f0786bf8a6@104.24.16.23:443?encryption=none&type=ws&path=%2F&security=tls&fp=chrome&sni=dark-rain-2989.gzgshsgs.workers.dev#CA 🇨🇦 | @Raydikalx | 1D7DF0",
+      "latency_ms": 127.36,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIyMTYuMTA2LjE4NS4xNDEiLCJhaWQiOiIwIiwiYWxwbiI6bnVsbCwiZnAiOm51bGwsImhvc3QiOiIiLCJpZCI6IjA0NjIxYmFlLWFiMzYtMTFlYy1iOTA5LTAyNDJhYzEyMDAwMiIsIm5hbWUiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCBGNUIxQ0EiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOjIyMzI0LCJzY3kiOiJhdXRvIiwic2tpcC1jZXJ0LXZlcmlmeSI6dHJ1ZSwic25pIjpudWxsLCJ0bHMiOiJub25lIiwidHlwZSI6bnVsbCwidiI6bnVsbCwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCBGNUIxQ0EifQ==",
-      "latency_ms": 184.34,
+      "config": "vmess://eyJhZGQiOiIzOC4xMDcuMjI2LjIyNyIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJpbnNlY3VyZSI6IjAiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6IjIyMzI0IiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAyNDNBN0IiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
+      "latency_ms": 135.45,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJ2IjoiMiIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgM0IxRDBBIiwiYWRkIjoiNjcuMjIwLjk1LjMiLCJwb3J0IjoiMTgwMDAiLCJpZCI6ImY4YzhkYzNkLTBkMzctNDZiMC04YjM0LWE3MjMyODgyZmNmZSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6Im5vbmUiLCJob3N0IjoiIiwicGF0aCI6IiIsInRscyI6IiIsInNuaSI6IiIsImFscG4iOiIiLCJmcCI6IiJ9",
-      "latency_ms": 184.66,
+      "config": "vmess://eyJhZGQiOiIxNzIuMTExLjM4LjEwMCIsImFpZCI6IjAiLCJob3N0IjoiIiwiaWQiOiIwNDYyMWJhZS1hYjM2LTExZWMtYjkwOS0wMjQyYWMxMjAwMDIiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiIiwicG9ydCI6IjIyMzI0IiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAzRDUxM0EiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
+      "latency_ms": 137.88,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://7ab29f89-6eef-4171-b232-fc4f580ad31b@172.235.43.210:53957?security=reality&type=tcp&sni=www.nvidia.com&fp=firefox&flow=xtls-rprx-vision&sid=44e82fd7b97b14&pbk=XUHlbk5VH5z4E2wxZBhlpLZ33qevyQgqU7dheRDgoGQ&encryption=none#US 🇺🇸 | @Raydikalx | 68A073",
-      "latency_ms": 188.31,
+      "config": "vmess://eyJhZGQiOiIzOC45MS4xMDcuNDkiLCJhaWQiOiIwIiwiYWxwbiI6bnVsbCwiZnAiOm51bGwsImhvc3QiOm51bGwsImlkIjoiZjhjOGRjM2QtMGQzNy00NmIwLThiMzQtYTcyMzI4ODJmY2ZlIiwibmFtZSI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDNBNjEwQyIsIm5ldCI6InRjcCIsInBhdGgiOiIvIiwicG9ydCI6MTgwMDAsInNjeSI6ImF1dG8iLCJza2lwLWNlcnQtdmVyaWZ5Ijp0cnVlLCJzbmkiOm51bGwsInRscyI6Im5vbmUiLCJ0eXBlIjpudWxsLCJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDNBNjEwQyJ9",
+      "latency_ms": 139.23,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vless://975fc322-6e38-434b-a53c-d39fed49b9a9@47.251.108.158:443?security=reality&type=tcp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&sid=896f52ba2cfca903&pbk=SmgYcFIvvFXW3xh4gvGhIJuQsaZvWkAylcjB6TEddEs#US 🇺🇸 | @Raydikalx | B5554D",
-      "latency_ms": 191.51,
+      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDJCOTdDRiIsImFkZCI6IjM4LjExMC4xLjI0NiIsInBvcnQiOjE4MDAwLCJpZCI6ImY4YzhkYzNkLTBkMzctNDZiMC04YjM0LWE3MjMyODgyZmNmZSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6bnVsbCwiaG9zdCI6IiIsImFscG4iOm51bGwsInBhdGgiOiIvIiwidGxzIjoibm9uZSIsInNuaSI6bnVsbCwiZnAiOm51bGwsIm5hbWUiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAyQjk3Q0YifQ==",
+      "latency_ms": 146.01,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJhZGQiOiIyMTYuMTUyLjE1Mi4xODciLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOjIyMzI0LCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDZCM0YxNiIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiJub25lIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiIsInZjbiI6IiIsIm5hbWUiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCA2QjNGMTYifQ==",
+      "latency_ms": 148.16,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJhZGQiOiIxNjcuMTcuNjguODkiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNzMxOTlGIiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIiLCJ2Y24iOiIifQ==",
+      "latency_ms": 148.93,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJhZGQiOiIxNjkuMTk3LjE0My4xMTYiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IiIsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiaW5zZWN1cmUiOiIwIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBjcyI6IiIsInBvcnQiOiIyMjMyNCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNTVCRTA1Iiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIiLCJ2Y24iOiIifQ==",
+      "latency_ms": 156.25,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJ2IjpudWxsLCJhZGQiOiI2Ny4yMjAuNzIuMjM3IiwicG9ydCI6MjIzMjQsImlkIjoiMDQ2MjFiYWUtYWIzNi0xMWVjLWI5MDktMDI0MmFjMTIwMDAyIiwiYWlkIjoiMCIsInNjeSI6ImF1dG8iLCJuZXQiOiJ0Y3AiLCJ0eXBlIjpudWxsLCJob3N0IjoiIiwiYWxwbiI6bnVsbCwicGF0aCI6Ii8iLCJ0bHMiOiIiLCJzbmkiOm51bGwsImZwIjoiY2hyb21lIiwicHMiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCAxMjBCMEEifQ==",
+      "latency_ms": 165.28,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vless://9952b71a-6c86-4522-888f-ff9ea9b93536@104.25.220.68:443?security=tls&type=ws&path=/&host=1.hshs8227shhshs.workers.dev&packetEncoding=xudp&sni=1.hshs8227shhshs.workers.dev&fp=chrome#CA 🇨🇦 | @Raydikalx | C3D46D",
+      "latency_ms": 175.0,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEY1QjFDQSIsImFkZCI6IjIxNi4xMDYuMTg1LjE0MSIsInBvcnQiOjIyMzI0LCJpZCI6IjA0NjIxYmFlLWFiMzYtMTFlYy1iOTA5LTAyNDJhYzEyMDAwMiIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6bnVsbCwiaG9zdCI6IiIsImFscG4iOm51bGwsInBhdGgiOiIvIiwidGxzIjoibm9uZSIsInNuaSI6bnVsbCwiZnAiOm51bGwsIm5hbWUiOiJVUyDwn4e68J+HuCB8IEBSYXlkaWthbHggfCBGNUIxQ0EifQ==",
+      "latency_ms": 176.66,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDEwMTI2OSIsImFkZCI6Ijg0LjE3LjQxLjIiLCJwb3J0IjoxODAwMCwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOm51bGwsImhvc3QiOiIiLCJhbHBuIjpudWxsLCJwYXRoIjoiLyIsInRscyI6Im5vbmUiLCJzbmkiOm51bGwsImZwIjpudWxsLCJuYW1lIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgMTAxMjY5In0=",
+      "latency_ms": 176.7,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEIwMDYwOCIsImFkZCI6IjY3LjIyMC45NS4zIiwicG9ydCI6MTgwMDAsImlkIjoiZjhjOGRjM2QtMGQzNy00NmIwLThiMzQtYTcyMzI4ODJmY2ZlIiwiYWlkIjoiMCIsInNjeSI6ImFlcy0xMjgtZ2NtIiwibmV0IjoidGNwIiwidHlwZSI6bnVsbCwiaG9zdCI6bnVsbCwiYWxwbiI6bnVsbCwicGF0aCI6Ii8iLCJ0bHMiOiJub25lIiwic25pIjpudWxsLCJmcCI6bnVsbCwibmFtZSI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEIwMDYwOCJ9",
+      "latency_ms": 177.14,
       "http_status": 204
     }
   ]
