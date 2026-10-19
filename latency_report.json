@@ -1,105 +1,105 @@
 {
-  "generated_at_utc": "2026-10-18T03:25:37Z",
+  "generated_at_utc": "2026-10-19T03:37:50Z",
   "test_url": "https://www.gstatic.com/generate_204",
   "total_unique_configs": 412,
-  "successful_tests": 62,
-  "failed_tests": 350,
+  "successful_tests": 61,
+  "failed_tests": 351,
   "failure_summary": {
-    "timeout": 41,
-    "connection_reset": 46,
-    "xray_config_rejected": 43,
-    "tls_error": 10,
-    "other": 210
+    "connection_reset": 47,
+    "timeout": 40,
+    "xray_config_rejected": 46,
+    "tls_error": 9,
+    "other": 209
   },
   "top": [
     {
       "source": "top100.txt",
-      "config": "vless://f5f0babe-aea2-4f07-a1fc-3c9820253f49@181.214.152.137:51104?fp=chrome&pbk=5XPuEa7CkCbN4W1iJH6P0ogGhODHkKUDEhmTosBQASQ&security=reality&sid=abcd1234&sni=apple.com&spx=%2F&type=tcp#US 🇺🇸 | @Raydikalx | FF4BBF",
-      "latency_ms": 73.72,
+      "config": "vless://055a1ce8-2a16-4a0d-a2c2-22826c9b2413@47.253.226.114:443?flow=xtls-rprx-vision&fp=firefox&path=%2F&pbk=Svl81isn16RPAFnjtmYw7A6TPnsEPLHuYYaJht65Rzc&security=reality&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | 9429DF",
+      "latency_ms": 43.44,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNzIuNjcuMTg3LjE0NSIsImFpZCI6IjAiLCJhbHBuIjoiIiwiZnAiOiIiLCJob3N0Ijoidm1lc3MubGJ3NjY2LmRwZG5zLm9yZyIsImlkIjoiMGNmNmQ5NzAtM2YxZC00YWFlLWE5ODktOTJhOGY3NmFlM2RiIiwibmFtZSI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IDBBRDUxOSIsIm5ldCI6IndzIiwicGF0aCI6Ii93cz9lZD0yMDQ4IiwicG9ydCI6ODAsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgMEFENTE5Iiwic2N5IjoiYXV0byIsInNuaSI6IiIsInRscyI6Im5vbmUiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
-      "latency_ms": 91.17,
+      "config": "vless://055a1ce8-2a16-4a0d-a2c2-22826c9b2413@47.253.226.114:443?security=reality&type=tcp&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&pbk=Svl81isn16RPAFnjtmYw7A6TPnsEPLHuYYaJht65Rzc&encryption=none#US 🇺🇸 | @Raydikalx | EFC7C0",
+      "latency_ms": 44.79,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxMDQuMjEuNy4xMzMiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6InZtZXNzLmxidzY2Ni5kcGRucy5vcmciLCJpZCI6IjBjZjZkOTcwLTNmMWQtNGFhZS1hOTg5LTkyYThmNzZhZTNkYiIsIm5hbWUiOiJDQSDwn4eo8J+HpiB8IEBSYXlkaWthbHggfCAyMkE4M0MiLCJuZXQiOiJ3cyIsInBhdGgiOiIvd3M/ZWQ9MjA0OCIsInBvcnQiOjgwLCJwcyI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IDIyQTgzQyIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiJub25lIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 94.64,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNzIuNjcuMTg3LjE0NSIsImFpZCI6MCwiaG9zdCI6InZtZXNzLmxidzY2Ni5kcGRucy5vcmciLCJpZCI6IjBjZjZkOTcwLTNmMWQtNGFhZS1hOTg5LTkyYThmNzZhZTNkYiIsIm5ldCI6IndzIiwicGF0aCI6Ii93cyIsInBvcnQiOiI4MCIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgQzQwMjM1Iiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 98.97,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJ2IjoiMiIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgRTg3RTdBIiwiYWRkIjoiY2YuMHNtLmNvbSIsInBvcnQiOiI4MCIsInR5cGUiOiJub25lIiwiaWQiOiIwY2Y2ZDk3MC0zZjFkLTRhYWUtYTk4OS05MmE4Zjc2YWUzZGIiLCJhaWQiOiIwIiwibmV0Ijoid3MiLCJwYXRoIjoiL3dzIiwiaG9zdCI6InZtZXNzLmxidzY2Ni5kcGRucy5vcmciLCJ0bHMiOiIiLCJza2lwLWNlcnQtdmVyaWZ5Ijp0cnVlfQ==",
-      "latency_ms": 104.66,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vless://1b4b11d5-4c2d-4533-9a55-636757cdee94@195.211.98.43:443?flow=xtls-rprx-vision&fp=safari&pbk=xPnpkXu5qfwIArlHKvJsqKJnGdGbJK1tT2GzWMyLohA&security=reality&sid=9c56fddf237e8eaf&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | 516E52",
-      "latency_ms": 122.72,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vless://055a1ce8-2a16-4a0d-a2c2-22826c9b2413@47.253.226.114:443?flow=xtls-rprx-vision&fp=chrome&path=%2FXIXVPN%3Fed%3D2560&pbk=Svl81isn16RPAFnjtmYw7A6TPnsEPLHuYYaJht65Rzc&security=reality&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | D8179B",
-      "latency_ms": 127.56,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vmess://eyJ2IjoiMiIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgNDZCNTY2IiwiYWRkIjoiY2YuMHNtLmNvbSIsInBvcnQiOiI0NDMiLCJpZCI6IjBjZjZkOTcwLTNmMWQtNGFhZS1hOTg5LTkyYThmNzZhZTNkYiIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0Ijoid3MiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiJ2bWVzcy5sYnc2NjYuZHBkbnMub3JnIiwicGF0aCI6Ii93cz9lZD0yMDQ4IiwidGxzIjoidGxzIiwic25pIjoidm1lc3MubGJ3NjY2LmRwZG5zLm9yZyIsImZwIjoiY2hyb21lIn0=",
-      "latency_ms": 129.64,
-      "http_status": 204
-    },
-    {
-      "source": "top100.txt",
-      "config": "vless://055a1ce8-2a16-4a0d-a2c2-22826c9b2413@47.253.226.114:443?encryption=none&flow=xtls-rprx-vision&pbk=Svl81isn16RPAFnjtmYw7A6TPnsEPLHuYYaJht65Rzc&security=reality&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | EFC7C0",
-      "latency_ms": 131.86,
+      "config": "vmess://eyJ2IjpudWxsLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEJBNDNBMyIsImFkZCI6IjY3LjIyMC44NS40NiIsInBvcnQiOjE4MDAwLCJpZCI6ImY4YzhkYzNkLTBkMzctNDZiMC04YjM0LWE3MjMyODgyZmNmZSIsImFpZCI6IjAiLCJzY3kiOiJhdXRvIiwibmV0IjoidGNwIiwidHlwZSI6bnVsbCwiaG9zdCI6bnVsbCwiYWxwbiI6bnVsbCwicGF0aCI6Ii8iLCJ0bHMiOiJub25lIiwic25pIjpudWxsLCJmcCI6bnVsbCwibmFtZSI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEJBNDNBMyJ9",
+      "latency_ms": 49.72,
       "http_status": 204
     },
     {
       "source": "top100.txt",
       "config": "vmess://eyJhZGQiOiI2Ny4yMjAuODUuNDYiLCJhaWQiOjAsImhvc3QiOiIiLCJpZCI6ImY4YzhkYzNkLTBkMzctNDZiMC04YjM0LWE3MjMyODgyZmNmZSIsIm5ldCI6InRjcCIsInBhdGgiOiIiLCJwb3J0IjoiMTgwMDAiLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IEYyNTgzQiIsInNuaSI6IjY3LjIyMC44NS40NiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
-      "latency_ms": 132.5,
+      "latency_ms": 50.23,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxNzIuNjYuMjAzLjY3IiwiYWlkIjowLCJob3N0Ijoidm1lc3MubGJ3NjY2LmRwZG5zLm9yZyIsImlkIjoiMGNmNmQ5NzAtM2YxZC00YWFlLWE5ODktOTJhOGY3NmFlM2RiIiwibmV0Ijoid3MiLCJwYXRoIjoiL3dzIiwicG9ydCI6NDQzLCJwcyI6IkNBIPCfh6jwn4emIHwgQFJheWRpa2FseCB8IEU4RDA4MSIsInNjeSI6ImF1dG8iLCJzbmkiOiIiLCJ0bHMiOiJ0bHMiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
-      "latency_ms": 133.49,
+      "config": "vless://c9fd0fb1-8251-4106-b09a-f4b426736f67@137.184.218.169:36925?alpn=networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-&flow=xtls-rprx-vision&pbk=lJ9INPpO4rdnm2Tek_yg0PGFyUrBB6MoKyvqt_Mfqm0&security=reality&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | E2DA73",
+      "latency_ms": 65.12,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIyMy4xNjIuMjAwLjE5OCIsImFpZCI6MCwiaG9zdCI6IiIsImlkIjoiZjhjOGRjM2QtMGQzNy00NmIwLThiMzQtYTcyMzI4ODJmY2ZlIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBvcnQiOiIxODAwMCIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgQkE1RTQyIiwic25pIjoiMjMuMTYyLjIwMC4xOTgiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
-      "latency_ms": 133.88,
+      "config": "vless://c9fd0fb1-8251-4106-b09a-f4b426736f67@137.184.218.169:36925?security=reality&type=tcp&alpn=http%252f1.1&sni=www.cloudflare.com&fp=chrome&flow=xtls-rprx-vision&pbk=lJ9INPpO4rdnm2Tek_yg0PGFyUrBB6MoKyvqt_Mfqm0#US 🇺🇸 | @Raydikalx | 2F1C8B",
+      "latency_ms": 66.06,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiIxMzQuMTk1LjE5Ni4yMTEiLCJhaWQiOiIwIiwiYWxwbiI6IiIsImZwIjoiIiwiaG9zdCI6IkBQcm94eVZQTjExIiwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJpbnNlY3VyZSI6IjEiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiL0BQcm94eVZQTjExIiwicG9ydCI6IjE4MDAwIiwicHMiOiJDQSDwn4eo8J+HpiB8IEBSYXlkaWthbHggfCA4RjhBQjgiLCJzY3kiOiJhdXRvIiwic25pIjoiIiwidGxzIjoiIiwidHlwZSI6Im5vbmUiLCJ2IjoiMiJ9",
-      "latency_ms": 136.43,
+      "config": "vmess://eyJhZGQiOiI2Ny4yMjAuODUuNDYiLCJhaWQiOjAsImhvc3QiOiI2Ny4yMjAuODUuNDYiLCJpZCI6ImY4YzhkYzNkLTBkMzctNDZiMC04YjM0LWE3MjMyODgyZmNmZSIsIm5ldCI6InRjcCIsInBhdGgiOiIiLCJwb3J0IjoiMTgwMDAiLCJwcyI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDQ2NzQxQyIsInNuaSI6IjY3LjIyMC44NS40NiIsInRscyI6IiIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
+      "latency_ms": 67.38,
       "http_status": 204
     },
     {
       "source": "top100.txt",
-      "config": "vmess://eyJhZGQiOiJjZi4wc20uY29tIiwiYWlkIjowLCJob3N0Ijoidm1lc3MubGJ3NjY2LmRwZG5zLm9yZyIsImlkIjoiMGNmNmQ5NzAtM2YxZC00YWFlLWE5ODktOTJhOGY3NmFlM2RiIiwibmV0Ijoid3MiLCJwYXRoIjoiL3dzIiwicG9ydCI6IjQ0MyIsInBzIjoiQ0Eg8J+HqPCfh6YgfCBAUmF5ZGlrYWx4IHwgOTY0ODJEIiwic25pIjoidm1lc3MubGJ3NjY2LmRwZG5zLm9yZyIsInRscyI6InRscyIsInR5cGUiOiJub25lIiwidiI6IjIifQ==",
-      "latency_ms": 136.92,
+      "config": "vless://14c80e0e-f7ce-4991-94fc-99a1db4a9b1e@159.89.87.21:28190?flow=xtls-rprx-vision&fp=firefox&path=%2FXIXVPN%3Fed%3D2560&pbk=ZJRnFU-1s1JOnO8E9uZ7b00l1fPEh63fGRbdBANFRno&security=reality&sni=aws.amazon.com&type=tcp#US 🇺🇸 | @Raydikalx | 489FEF",
+      "latency_ms": 67.43,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vless://c9fd0fb1-8251-4106-b09a-f4b426736f67@137.184.218.169:36925?flow=xtls-rprx-vision&fp=firefox&path=%2FXIXVPN%3Fed%3D2560&pbk=lJ9INPpO4rdnm2Tek_yg0PGFyUrBB6MoKyvqt_Mfqm0&security=reality&sni=www.cloudflare.com&type=tcp#US 🇺🇸 | @Raydikalx | E60580",
+      "latency_ms": 67.47,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJhZGQiOiI2Ny4yMjAuOTUuMyIsImFpZCI6MCwiaG9zdCI6IjY3LjIyMC45NS4zIiwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJuZXQiOiJ0Y3AiLCJwYXRoIjoiLyIsInBvcnQiOiIxODAwMCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgREUwOEE3Iiwic25pIjoiNjcuMjIwLjk1LjMiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
+      "latency_ms": 68.35,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vmess://eyJ2IjoiMiIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgM0IxRDBBIiwiYWRkIjoiNjcuMjIwLjk1LjMiLCJwb3J0IjoxODAwMCwiaWQiOiJmOGM4ZGMzZC0wZDM3LTQ2YjAtOGIzNC1hNzIzMjg4MmZjZmUiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJub25lIiwiaG9zdCI6IiIsInBhdGgiOiIiLCJ0bHMiOiJub25lIiwic25pIjoiIiwiYWxwbiI6IiIsImZwIjoiIiwibmFtZSI6IlVTIPCfh7rwn4e4IHwgQFJheWRpa2FseCB8IDNCMUQwQSJ9",
+      "latency_ms": 70.16,
       "http_status": 204
     },
     {
       "source": "top100.txt",
       "config": "vmess://eyJhZGQiOiI2Ny4yMjAuOTUuMyIsImFpZCI6MCwiaG9zdCI6IiIsImlkIjoiZjhjOGRjM2QtMGQzNy00NmIwLThiMzQtYTcyMzI4ODJmY2ZlIiwibmV0IjoidGNwIiwicGF0aCI6IiIsInBvcnQiOiIxODAwMCIsInBzIjoiVVMg8J+HuvCfh7ggfCBAUmF5ZGlrYWx4IHwgNjAyOTM1Iiwic25pIjoiNjcuMjIwLjk1LjMiLCJ0bHMiOiIiLCJ0eXBlIjoibm9uZSIsInYiOiIyIn0=",
-      "latency_ms": 137.19,
+      "latency_ms": 72.26,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vless://1f8cf47a-b66a-4916-979f-26edfcf44eea@185.95.231.156:443?flow=xtls-rprx-vision&fp=chrome&pbk=8eXftARun6KH38UZhuqIfPR1VF2DLS9RMBZEnF5k6To&security=reality&sid=a3a578ab&sni=www.apple.com&type=tcp#US 🇺🇸 | @Raydikalx | DCC4AE",
+      "latency_ms": 72.85,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vless://14c80e0e-f7ce-4991-94fc-99a1db4a9b1e@159.89.87.21:28190?security=reality&type=raw&alpn=http%2F1.1&sni=aws.amazon.com&fp=chrome&flow=xtls-rprx-vision&pbk=ZJRnFU-1s1JOnO8E9uZ7b00l1fPEh63fGRbdBANFRno#US 🇺🇸 | @Raydikalx | 38E5C7",
+      "latency_ms": 73.97,
+      "http_status": 204
+    },
+    {
+      "source": "top100.txt",
+      "config": "vless://14c80e0e-f7ce-4991-94fc-99a1db4a9b1e@159.89.87.21:28190?alpn=networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-channel%40.networld_vpn-&flow=xtls-rprx-vision&fp=chrome&pbk=ZJRnFU-1s1JOnO8E9uZ7b00l1fPEh63fGRbdBANFRno&security=reality&sni=aws.amazon.com&type=tcp#US 🇺🇸 | @Raydikalx | BEC059",
+      "latency_ms": 74.71,
       "http_status": 204
     }
   ]
